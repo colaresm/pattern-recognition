@@ -3,36 +3,36 @@ from dataset import load_data
 from metrics import calc_accuracy
 import time
 
-start = time.time()
-X,y = load_data()
-end = time.time()
-print("Execution train time:", end - start, "seconds")
+import time
+import numpy as np
 
-X_train, X_test, y_train, y_test = train_test_split(X,y)
+class NearestNeighbor:
+    def __init__(self, p=0.5):
+        self.p = p
+        self.X_train = None
+        self.y_train = None
 
-def minkowski_distance(x1, x2, p=0.5):
-    if len(x1) != len(x2):
-        raise ValueError("The vectors must have the same length.")
-    s = sum(abs(a - b) ** p for a, b in zip(x1, x2))
-    return s ** (1 / p)
+    def minkowski_distance(self, x1, x2):
+        if len(x1) != len(x2):
+            raise ValueError("The vectors must have the same length.")
+        s = sum(abs(a - b) ** self.p for a, b in zip(x1, x2))
+        return s ** (1 / self.p)
 
-def nn(X_new):
-    dists = []
-    for X in X_train:
-        dist = minkowski_distance(X,X_new)
-        dists.append(dist)
-    index = dists.index(min(dists))
-    return y_train[index]
+    def fit(self, X_train, y_train):
+        self.X_train = X_train
+        self.y_train = y_train
 
-def predict_data():
-    predictions = []
-    start = time.time()
-    for X_to_test in X_test:
-        prediction = nn(X_to_test)
-        predictions.append(prediction)
-    end = time.time()
-    print("Execution test time:", end - start, "seconds")
-    return predictions
+    def _nn(self, X_new):
+        dists = [self.minkowski_distance(X, X_new) for X in self.X_train]
+        index = np.argmin(dists)
+        return self.y_train[index]
 
-y_predicted = predict_data()
-print(calc_accuracy(y_test, y_predicted))
+    def predict(self, X_test):
+        predictions = []
+        start = time.time()
+        for X in X_test:
+            predictions.append(self._nn(X))
+        end = time.time()
+        print("Execution test time:", end - start, "seconds")
+        return predictions
+
