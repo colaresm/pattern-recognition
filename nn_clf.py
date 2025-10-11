@@ -1,8 +1,3 @@
-from train_test_split import train_test_split
-from dataset import load_data
-from metrics import calc_accuracy
-import time
-
 import time
 import numpy as np
 

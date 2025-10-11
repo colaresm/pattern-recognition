@@ -16,7 +16,6 @@ def stats(accs):
     return float(mean_acc[0]), float(std_acc[0]),  float(max_acc[0]), float(min_acc[0]), float(median_acc)
 
 def plot_confusion_matrix(y_true,y_predicted,title):
-    plt.figure()
     cm = confusion_matrix(y_true, y_predicted)
     disp = ConfusionMatrixDisplay(confusion_matrix=cm)
     disp.plot(cmap=plt.cm.Blues)
