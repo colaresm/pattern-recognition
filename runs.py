@@ -50,7 +50,5 @@ def NN(X, y, test_sizes, p_values, rounds=10):
                 "p": p,
                 "test_time":np.mean(test_times)
             }
-
-    print(f"test_size={test_size}, p={p}: Mean={mean_acc:.4f}, Std={std_acc:.4f}, Max={max_acc:.4f}, Min={min_acc:.4f}, Median={median_acc:.4f}")
-
+            
     return results

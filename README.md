@@ -3,6 +3,10 @@
 
 * Para executar seu ambiente execute os seguintes comandos:
 
+```
+pip install -r requirements.txt
+```
+
 ## Criar e Ativar Ambiente Virtual Python
 ## 1️⃣ Criar o ambiente virtual
 
