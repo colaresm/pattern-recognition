@@ -1,6 +1,7 @@
 import random
 
 def train_test_split(X, y, test_size=0.2, seed=None):
+    y = process_labels(y)
     if seed is not None:
         random.seed(seed)
     assert len(X) == len(y), "X e y devem ter o mesmo tamanho."
@@ -16,6 +17,11 @@ def train_test_split(X, y, test_size=0.2, seed=None):
     y_test = [y[i] for i in test_indices]
     return X_train, X_test, y_train, y_test
 
+def process_labels(labels):
+    processed_labels = []
+    for label in labels:
+        processed_labels.append(label[0])
+    return processed_labels
 #X = [[1, 2], [3, 4], [5, 6], [7, 8], [9, 10]]
 #y = [0, 1, 0, 1, 0]
 

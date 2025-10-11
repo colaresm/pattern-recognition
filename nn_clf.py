@@ -1,4 +1,3 @@
-import time
 import numpy as np
 
 class NearestNeighbor:
@@ -24,10 +23,8 @@ class NearestNeighbor:
 
     def predict(self, X_test):
         predictions = []
-        start = time.time()
         for X in X_test:
             predictions.append(self._nn(X))
-        end = time.time()
-        print("Execution test time:", end - start, "seconds")
+      
         return predictions
 
