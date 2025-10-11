@@ -1,25 +1,40 @@
 import matplotlib.pyplot as plt
 from metrics import plot_confusion_matrix
-
+import numpy as np
 def show_results(results):
     unique_test_sizes = sorted(set([results[key]["test_size"] for key in results.keys()]))
     plt.figure(figsize=(10, 6))
-    for test_size in unique_test_sizes:
-        x_vals = []
+    if len(sorted(set([results[key]["p"] for key in results.keys()]))) !=1:
+        for test_size in unique_test_sizes:
+            x_vals = []
+            y_vals = []
+            for  (i,j),data in results.items():
+                if data["test_size"] == test_size:
+                    x_vals.append(data["p"])
+                    y_vals.append(data["mean"])
+            x_vals, y_vals = zip(*sorted(zip(x_vals, y_vals)))
+            plt.plot(x_vals, y_vals, marker='o', label=f"test_size={test_size}")
+            plt.xlabel("p")
+            plt.ylabel("Acurácia média")
+            plt.grid(True)
+            plt.legend(title="Test Size")
+            plt.tight_layout()
+            plt.show()
+    else:
         y_vals = []
-        for  (i,j),data in results.items():
-            if data["test_size"] == test_size:
-                x_vals.append(data["p"])
-                y_vals.append(data["mean"])
-        x_vals, y_vals = zip(*sorted(zip(x_vals, y_vals)))
-        plt.plot(x_vals, y_vals, marker='o', label=f"test_size={test_size}")
+        for test_size in unique_test_sizes:
+            for  (i,j),data in results.items():
+                if data["test_size"] == test_size:
+                    y_vals.append(data["mean"])
 
-    plt.xlabel("p")
-    plt.ylabel("Acurácia média")
-    plt.grid(True)
-    plt.legend(title="Test Size")
-    plt.tight_layout()
-    plt.show()
+        print(np.array(y_vals))
+        plt.plot(unique_test_sizes, np.array(y_vals))
+        plt.xlabel("Test size")
+        plt.ylabel("Acurácia média")
+        plt.grid(True)
+        plt.tight_layout()
+        plt.show()
+   
 
     # --- Confusion matrix for bes p value ---
     max_mean = -float('inf')
@@ -33,6 +48,7 @@ def show_results(results):
 
     best_results = results[(i,j)]
     plot_confusion_matrix(best_results["true_labels"][0], best_results["predictions"][0], f"Best Confusion Matrix (p={best_p}) with test_size = {best_results["test_size"]}")
+   
     # --- Confusion matrix for worst p value ---
     min_mean = float('inf')
     worst_p = None

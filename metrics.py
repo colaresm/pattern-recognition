@@ -6,7 +6,6 @@ def calc_accuracy(y_true, y_predicted):
     correct = sum(yt == yp for yt, yp in zip(y_true, y_predicted))
     return round(100 * (correct / len(y_true)), 2)
 
-
 def stats(accs):
     mean_acc = np.mean(accs), 
     std_acc = np.std(accs), 

@@ -17,3 +17,13 @@ test_sizes = [0.2, 0.3, 0.5, 0.7, 0.8]
 #results.show_results(results_nn)
 
 #### Classificador Distância Mínima ao Centróide #####
+#results_mdc = runs.MDC(X, y, test_sizes, rounds=100)
+#results.show_results(results_mdc)
+
+#### Classificador Distância Mínima ao Centróide (versão robusta a outliers) #####
+#results_mdc = runs.MDC(X, y, test_sizes, rounds=100,is_robust_version=True)
+#results.show_results(results_mdc)
+
+#### Classificador de Máxima Correlação #####
+results_mc = runs.mc(X, y, test_sizes, rounds=100)
+results.show_results(results_mc)
