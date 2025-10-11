@@ -22,12 +22,3 @@ def process_labels(labels):
     for label in labels:
         processed_labels.append(label[0])
     return processed_labels
-#X = [[1, 2], [3, 4], [5, 6], [7, 8], [9, 10]]
-#y = [0, 1, 0, 1, 0]
-
-#X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4, seed=42)
-
-#print("X_train:", X_train)
-#print("X_test:", X_test)
-#print("y_train:", y_train)
-#print("y_test:", y_test)
